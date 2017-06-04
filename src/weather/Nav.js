@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
+
+import './Nav.scss';
 class Nav extends Component {
   state = {};
   render() {
     return (
       <div className="top-bar">
-        <div className="top-bar-title"><Link to="/">Weather App</Link></div>
+        <div className="top-bar-title"><Link to="/"><strong>Weather App</strong></Link></div>
         <div>
           <div className="top-bar-left">
             <ul className="menu">
               <li>
                 <NavLink
                   to="/"
-                  activeClassName="active"
+                  activeClassName="w-active"
                   exact={true}
-                  activeStyle={{ fontWeight: "bold", color: "red" }}
                 >
                   Get Weather
                 </NavLink>
@@ -22,8 +23,7 @@ class Nav extends Component {
               <li>
                 <NavLink
                   to="/about"
-                  activeClassName="active"
-                  activeStyle={{ fontWeight: "bold", color: "red" }}
+                  activeClassName="w-active"
                 >
                   About
                 </NavLink>
@@ -31,8 +31,7 @@ class Nav extends Component {
               <li>
                 <NavLink
                   to="/example"
-                  activeClassName="active"
-                  activeStyle={{ fontWeight: "bold", color: "red" }}
+                  activeClassName="w-active"
                 >
                   Example
                 </NavLink>
