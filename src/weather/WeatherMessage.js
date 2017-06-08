@@ -10,7 +10,7 @@ class WeatherMessage extends Component {
 
         return (              
             <div className="text-center">
-               <h4>Its {temp} degress in {location} at {date}</h4>
+               <h4>Its {temp}* in {location} at {date}</h4>
             </div>
         );
     }

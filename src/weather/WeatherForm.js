@@ -9,34 +9,41 @@ class WeatherForm extends Component {
     */
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            location: null
+        };
         // This binding is necessary to make `this` work in the callback
-        this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.getWeather = this.getWeather.bind(this);
+        this.setLocation = this.setLocation.bind(this);
     }
 
     // state = {  }
 
-    onSuggestSelect(suggest){
-        console.log(suggest);
+    setLocation(suggest){
+        // console.log(suggest);
+        let location = {
+            lat: suggest.location.lat,
+            lon: suggest.location.lng
+        };
+        this.setState({
+            location: location
+        });
     }
 
-    onFormSubmit(e){
+    getWeather(e){
         e.preventDefault();
-
-        let location = this.textInput.value;
-
-        if(location.length){
-            this.textInput.value = '';
-            this.props.onSearch(location);
+        console.log('aqui');
+        if(this.state.location){
+            this._geoSuggest.clear();
+            this.props.onSearch(this.state.location)
         }
-
     }
     render() {
         return (              
-            <form onSubmit={this.onFormSubmit}>
-                <input type="text" placeholder="Enter city name" ref={(input) => { this.textInput = input; }}/>
+            <form onSubmit={this.getWeather}>
+                {/*<input type="text" placeholder="Enter city name" ref={(input) => { this.textInput = input; }}/>*/}
 
-                {/*<Geosuggest placeholder="Enter city name" onSuggestSelect={this.onSuggestSelect}/>*/}
+                <Geosuggest placeholder="Enter city name" ref={el=>this._geoSuggest=el} onSuggestSelect={this.setLocation}/>
                 <button type="submit" className="button expanded">Get Weather</button>
             </form>
         );
