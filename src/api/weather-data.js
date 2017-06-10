@@ -10,7 +10,6 @@ class WeatherData {
 
         return axios.get(requestUrl)
             .then((res) => {
-                console.log(res);
                 if(res.data.cod && res.data.name){
                     return res.data;
                 }else{

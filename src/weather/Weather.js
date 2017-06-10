@@ -10,31 +10,48 @@ class Weather extends Component {
     this.WeatherData = new WeatherData();
 
     //Initial States
-    this.state = {};
+    this.state = {
+      isLoading: false
+    };
 
     this.handleSearch = this.handleSearch.bind(this);
-  }
+   }
 
   handleSearch(location) {
+
+    this.setState({isLoading: true});
+
     this.WeatherData.getTemp(location).then(data => {
+      // this.setState({isLoading: false});
       this.setState({
         location: data.name,
         temp: data.main.temp,
-        date: new Date(data.dt).toLocaleTimeString()
+        date: new Date(data.dt).toLocaleTimeString(),
+        isLoading: false
       });
+
     });
   }
 
+
   render() {
-    return (
-      <div className="medium-6 medium-offset-3 columns">
-        <h1>Get Weather</h1>
-        <WeatherForm onSearch={this.handleSearch} />
-        <WeatherMessage
+
+    let elementToDisplay = null;
+    if(this.state.isLoading){
+      elementToDisplay = <h4>Fetching weather...</h4>;
+    }else if(this.state.temp && this.state.location){
+      elementToDisplay = <WeatherMessage
           date={this.state.date}
           location={this.state.location}
           temp={this.state.temp}
-        />
+        />;
+    }
+      return (
+     
+      <div className="medium-6 medium-offset-3 columns">
+        <h1>Get Weather</h1>
+        <WeatherForm onSearch={this.handleSearch} />
+        {elementToDisplay}
       </div>
     );
   }

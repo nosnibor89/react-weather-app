@@ -32,7 +32,6 @@ class WeatherForm extends Component {
 
     getWeather(e){
         e.preventDefault();
-        console.log('aqui');
         if(this.state.location){
             this._geoSuggest.clear();
             this.props.onSearch(this.state.location)
